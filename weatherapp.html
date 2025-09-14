@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Weather App</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6BC1FF, #3A8DFF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #ffffff;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    width: 320px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+  h1 {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+
+  input[type="text"]:focus {
+    box-shadow: 0 0 10px #bbdefb;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #0288d1;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background: #01579b;
+  }
+
+  #result {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  }
+
+  #result strong {
+    font-size: 1.5rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Weather App</h1>
+  <input type="text" id="location" placeholder="Enter Location" />
+  <button onclick="getWeather()">Get Temperature</button>
+  <div id="result"></div>
+</div>
+
+<script>
+  async function getWeather() {
+    const location = document.getElementById('location').value.trim();
+    const resultDiv = document.getElementById('result');
+    if (!location) {
+      resultDiv.textContent = 'Please enter a location.';
+      return;
+    }
+
+    const apiKey = 'b716b67820484492bd7183320251409';
+    const apiUrl = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(location)}&aqi=yes`;
+
+    try {
+      resultDiv.textContent = 'Loading...';
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error('Location not found');
+      }
+      const data = await response.json();
+
+      const tempC = data.current.temp_c;
+      const condition = data.current.condition.text;
+      const city = data.location.name;
+      const country = data.location.country;
+
+      resultDiv.innerHTML = `
+        <strong>Weather in ${city}, ${country}</strong><br/>
+        Temperature: ${tempC} °C<br/>
+        Condition: ${condition}
+      `;
+    } catch (error) {
+      resultDiv.textContent = 'Error: ' + error.message;
+    }
+  }
+</script>
+
+</body>
+</html>
