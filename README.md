@@ -59,7 +59,7 @@ For example:
 ```text
 User searches for:
 
-        PARIS
+        BANGALORE
           │
           ▼
  ┌──────────────────────┐
@@ -73,7 +73,7 @@ User searches for:
                    ▼
         ┌───────────────────┐
         │ Books related to  │
-        │      Paris        │
+        │   BANGALORE       │
         └───────────────────┘
 ````
 
@@ -93,11 +93,11 @@ A search for **Paris** could lead to recommendations involving:
 
 ```text
 Paris
- ├── Fiction set in Paris
- ├── Historical books about Paris
+ ├── Fiction set in Bangalore
+ ├── Historical books about Bangalore
  ├── Travel guides
  ├── Cultural literature
- └── Books by authors connected to Paris
+ └── Books by authors connected to Bangalore
 ```
 
 The goal is to allow users to **experience a destination through literature before physically visiting it**.
@@ -123,15 +123,15 @@ The place discovery system will eventually work together with the book recommend
 For example:
 
 ```text
-Search: Rome
+Search: DELHI
 
 Places
- ├── Colosseum
- ├── Pantheon
- └── Roman Forum
+ ├── Red Fort
+ ├── Hauz khas
+ └── Dwarka
 
 Books
- ├── Books about Ancient Rome
+ ├── Books about Delhi
  ├── Historical fiction
  └── Travel literature
 ```
